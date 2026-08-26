@@ -1,0 +1,59 @@
+<header class="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+    <a routerLink="/" class="flex items-center gap-2 text-lg font-bold text-slate-900" (click)="closeMobile()">
+      <span class="flex h-8 w-8 items-center justify-center rounded-md bg-red-600 text-white">S</span>
+      Star Media Group
+    </a>
+
+    <ul class="hidden items-center gap-6 sm:flex">
+      @for (link of links; track link.path) {
+        <li>
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="text-red-600"
+            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+            class="text-sm font-medium text-slate-600 transition-colors hover:text-red-600"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <button
+      type="button"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 sm:hidden"
+      (click)="toggleMobile()"
+      [attr.aria-expanded]="mobileOpen()"
+      aria-label="Toggle navigation menu"
+    >
+      @if (mobileOpen()) {
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      } @else {
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+        </svg>
+      }
+    </button>
+  </nav>
+
+  @if (mobileOpen()) {
+    <ul class="border-t border-slate-200 bg-white px-4 py-3 sm:hidden">
+      @for (link of links; track link.path) {
+        <li>
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="text-red-600"
+            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+            (click)="closeMobile()"
+            class="block rounded-lg px-2 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</header>

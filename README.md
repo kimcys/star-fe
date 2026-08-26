@@ -1,59 +1,80 @@
-# StarFe
+# Star Media Group — Frontend (star-fe)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.6.
+Angular 22 + Tailwind CSS v4 frontend for the practical assessment. A
+4-page public site (Home, About Us / Contact Us, Privacy Policy, Terms &
+Conditions) with a blocking cookie-consent banner, plus a bonus admin
+portal to view submitted consent decisions. Consumes the JSON API in the
+sibling [`star-be`](../star-be) repo.
 
-## Development server
+## Status
 
-To start a local development server, run:
+- ✅ 4 public pages, all sharing a common `ShellComponent` layout
+  (navbar + footer)
+- ✅ Mobile-responsive navbar with a hamburger menu on small screens
+- ✅ Blocking cookie-consent banner (`ConsentBannerComponent`) — locks
+  page scroll until accepted/declined, links to Terms & Conditions and
+  Privacy Policy, re-checked via the backend on every load since the
+  real consent cookies are httponly
+- ✅ Admin login + dashboard (route-guarded), listing consent records
+  from the backend
+- ✅ Built from small reusable components (`app-button`, `app-card`,
+  `app-page-hero`, `app-legal-sections`, `app-form-field`, `app-alert`,
+  `app-badge`, `app-spinner`, `app-table`) shared across pages instead
+  of duplicating markup
+
+## Requirements
+
+- Node.js 20+ and npm
+- The `star-be` backend running and reachable (see its README) —
+  either via `docker compose up -d --build` in `../star-be`, or the
+  manual PHP/MySQL setup described there
+
+## Local setup
 
 ```bash
-ng serve
+npm install
+npm start        # ng serve, http://localhost:4200
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Backend URL
 
-## Code scaffolding
+The API base URL is a single constant:
+[`src/app/core/config/api.config.ts`](src/app/core/config/api.config.ts).
+It defaults to `http://localhost:8000`, matching the backend's
+`CORS_ALLOWED_ORIGIN=http://localhost:4200` default.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
+> **Important:** use `http://localhost:8000`, not `http://127.0.0.1:8000`,
+> even though both reach the same server. The backend's session, CSRF,
+> and consent cookies are all `SameSite=Lax`. Because `localhost` and
+> `127.0.0.1` are treated as different sites for `SameSite` purposes,
+> calling the `127.0.0.1` URL from a page served at `localhost:4200`
+> means the browser will set those cookies but silently refuse to send
+> them back on the next request — the consent banner would then
+> reappear on every reload even after accepting. Keeping both frontend
+> and backend on the `localhost` host keeps them same-site.
 
 ## Building
 
-To build the project run:
-
 ```bash
-ng build
+npm run build     # outputs to dist/star-fe
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
 ## Running unit tests
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
 ```bash
-ng test
+npm test          # Vitest
 ```
 
-## Running end-to-end tests
+## Project structure
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```
+src/app/
+  core/            # config, services (ConsentService, AdminAuthService,
+                    # ConsentLogsService), the API interceptor, the
+                    # admin route guard, and shared models
+  shared/components/  # reusable, presentation-only UI building blocks
+  layout/          # ShellComponent (public site) and AdminShellComponent
+  pages/           # one folder per routed page
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Routing (`app.routes.ts`) lazy-loads every page with `loadComponent`.

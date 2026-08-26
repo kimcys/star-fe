@@ -1,0 +1,36 @@
+<app-page-hero
+  title="About Us / Contact Us"
+  subtitle="Learn more about Star Media Group and how to reach our team."
+></app-page-hero>
+
+<section class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+  <div class="grid gap-10 sm:grid-cols-2">
+    <div>
+      <h2 class="text-xl font-bold text-slate-900">About Us</h2>
+      <p class="mt-4 text-sm leading-relaxed text-slate-600">
+        Star Media Group Berhad is a leading media organisation committed to delivering
+        trusted, timely, and relevant content across multiple platforms. From print to
+        digital, we connect communities with the stories that matter most.
+      </p>
+      <p class="mt-4 text-sm leading-relaxed text-slate-600">
+        This site is a practical assessment build demonstrating a consent-compliant,
+        mobile-responsive 4-page website backed by a PHP/MySQL API.
+      </p>
+    </div>
+
+    <app-card>
+      <h2 class="text-xl font-bold text-slate-900">Contact Us</h2>
+      <ul class="mt-4 space-y-4">
+        @for (detail of contactDetails; track detail.label) {
+          <li class="flex items-start gap-3">
+            <span class="text-xl" aria-hidden="true">{{ detail.icon }}</span>
+            <span>
+              <span class="block text-sm font-medium text-slate-900">{{ detail.label }}</span>
+              <span class="block text-sm text-slate-600">{{ detail.value }}</span>
+            </span>
+          </li>
+        }
+      </ul>
+    </app-card>
+  </div>
+</section>

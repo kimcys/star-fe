@@ -1,0 +1,40 @@
+<div class="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-slate-50 px-4 py-16">
+  <app-card class="w-full max-w-sm">
+    <div class="mb-6 text-center">
+      <h1 class="text-xl font-bold text-slate-900">Admin Login</h1>
+      <p class="mt-1 text-sm text-slate-500">Sign in to view submitted consent records.</p>
+    </div>
+
+    @if (errorMessage()) {
+      <div class="mb-4">
+        <app-alert tone="error">{{ errorMessage() }}</app-alert>
+      </div>
+    }
+
+    <form class="space-y-4" (submit)="$event.preventDefault(); submit()">
+      <app-form-field label="Username">
+        <app-input
+          type="text"
+          name="username"
+          autocomplete="username"
+          [value]="username()"
+          (valueChange)="username.set($event)"
+        ></app-input>
+      </app-form-field>
+
+      <app-form-field label="Password">
+        <app-input
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          [value]="password()"
+          (valueChange)="password.set($event)"
+        ></app-input>
+      </app-form-field>
+
+      <app-button type="submit" variant="primary" [fullWidth]="true" [loading]="submitting()">
+        Log in
+      </app-button>
+    </form>
+  </app-card>
+</div>

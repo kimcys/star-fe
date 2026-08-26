@@ -1,0 +1,71 @@
+<div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-slate-900">Consent Records</h1>
+    <p class="mt-1 text-sm text-slate-500">Most recent 200 consent decisions submitted by visitors.</p>
+  </div>
+
+  <div class="mb-8 grid gap-4 sm:grid-cols-3">
+    <app-card>
+      <p class="text-sm text-slate-500">Total Records</p>
+      <p class="mt-1 text-2xl font-bold text-slate-900">{{ logs().length }}</p>
+    </app-card>
+    <app-card>
+      <p class="text-sm text-slate-500">Accepted</p>
+      <p class="mt-1 text-2xl font-bold text-green-600">{{ acceptedCount() }}</p>
+    </app-card>
+    <app-card>
+      <p class="text-sm text-slate-500">Declined</p>
+      <p class="mt-1 text-2xl font-bold text-red-600">{{ declinedCount() }}</p>
+    </app-card>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="mb-6">
+      <app-alert tone="error">{{ errorMessage() }}</app-alert>
+    </div>
+  }
+
+  @if (loading()) {
+    <app-spinner></app-spinner>
+  } @else {
+    <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="sm:w-72">
+        <app-input
+          type="search"
+          placeholder="Search by GUID or IP address"
+          [value]="searchTerm()"
+          (valueChange)="onSearchChange($event)"
+        ></app-input>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <label for="status-filter" class="text-sm font-medium text-slate-600">Status</label>
+        <select
+          id="status-filter"
+          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+          [value]="statusFilter()"
+          (change)="onStatusFilterChange($any($event.target).value)"
+        >
+          <option value="all">All</option>
+          <option value="accepted">Accepted</option>
+          <option value="declined">Declined</option>
+        </select>
+      </div>
+    </div>
+
+    <app-table
+      [columns]="columns"
+      [rows]="pagedLogs()"
+      emptyMessage="No consent decisions match your search."
+    ></app-table>
+
+    <div class="mt-4">
+      <app-pagination
+        [page]="currentPage()"
+        [totalItems]="filteredLogs().length"
+        [pageSize]="pageSize"
+        (pageChange)="page.set($event)"
+      ></app-pagination>
+    </div>
+  }
+</div>

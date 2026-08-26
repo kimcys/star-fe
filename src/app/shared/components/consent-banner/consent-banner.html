@@ -1,0 +1,56 @@
+@if (consent.showBanner()) {
+  <div class="fixed inset-0 z-50 bg-slate-900/60" aria-hidden="true"></div>
+
+  <div
+    class="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white px-4 py-6 shadow-2xl sm:px-6"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="consent-banner-title"
+  >
+    <div class="mx-auto flex max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex-1">
+        <h2 id="consent-banner-title" class="text-sm font-semibold text-slate-900">
+          We value your privacy
+        </h2>
+        <p class="mt-1.5 text-sm text-slate-600">
+          Cookies are necessary for this website to function properly, for performance
+          measurement, and to provide you with the best experience.
+        </p>
+        <p class="mt-1.5 text-sm text-slate-600">
+          By continuing to access or use this site, you acknowledge and consent to our use of
+          cookies in accordance with our
+          <a routerLink="/terms-conditions" class="font-medium text-red-600 underline hover:text-red-700">
+            Terms &amp; Conditions
+          </a>
+          and
+          <a routerLink="/privacy-policy" class="font-medium text-red-600 underline hover:text-red-700">
+            Privacy Statement
+          </a>.
+        </p>
+
+        @if (errorMessage()) {
+          <p class="mt-2 text-sm text-red-600">{{ errorMessage() }}</p>
+        }
+      </div>
+
+      <div class="flex shrink-0 items-center gap-3">
+        <app-button
+          variant="outline"
+          [loading]="submitting() === 'decline'"
+          [disabled]="submitting() === 'accept'"
+          (click)="decline()"
+        >
+          Decline
+        </app-button>
+        <app-button
+          variant="primary"
+          [loading]="submitting() === 'accept'"
+          [disabled]="submitting() === 'decline'"
+          (click)="accept()"
+        >
+          Accept
+        </app-button>
+      </div>
+    </div>
+  </div>
+}
