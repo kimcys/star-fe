@@ -99,6 +99,35 @@ activated" error), the key's Google Cloud project needs:
 npm run build     # outputs to dist/star-fe
 ```
 
+### Docker
+
+A `Dockerfile` builds the production bundle (Node) and serves the
+static `dist/star-fe/browser` output via nginx, with `nginx.conf`
+handling the Angular Router's client-side routes (any path that isn't
+a real file falls back to `index.html`, so a hard refresh on `/about`
+or `/admin/dashboard` works instead of 404ing).
+
+Standalone:
+
+```bash
+docker build -t star-fe-web .
+docker run -p 4200:80 star-fe-web
+```
+
+Or as part of the whole stack — `star-be`'s `docker-compose.yml`
+includes this as a third `web` service (context: `../star-fe`), so
+from `../star-be`:
+
+```bash
+docker compose up -d --build
+```
+
+brings up the backend, database, *and* frontend together, all on
+their existing ports (`4200` for the frontend, matching
+`CORS_ALLOWED_ORIGIN=http://localhost:4200` and `ng serve`'s default —
+API calls from the browser work unchanged either way). Stop your local
+`npm start` first if it's already bound to `4200`.
+
 ## Running unit tests
 
 ```bash
