@@ -14,10 +14,9 @@ export const routes: Routes = [
         title: 'Star Media Group — Home',
       },
       {
-        path: 'about-contact',
-        loadComponent: () =>
-          import('./pages/about-contact/about-contact').then((m) => m.AboutContactComponent),
-        title: 'About Us / Contact Us — Star Media Group',
+        path: 'about',
+        loadComponent: () => import('./pages/about/about').then((m) => m.AboutComponent),
+        title: 'About Us — Star Media Group',
       },
       {
         path: 'privacy-policy',

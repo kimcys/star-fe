@@ -17,18 +17,33 @@ export class HomeComponent {
   readonly features: Feature[] = [
     {
       icon: '📰',
-      title: 'Trusted News',
-      description: 'Timely, accurate reporting across print and digital platforms.',
+      title: 'Journalistic Excellence',
+      description:
+        'Award-winning work across print and digital that reflects our commitment to credibility, depth, and public trust.',
     },
     {
       icon: '🌏',
-      title: 'Regional Reach',
-      description: 'Connecting audiences across Malaysia and the wider region.',
+      title: 'Multi-Platform Reach',
+      description:
+        'Print, digital, radio, events, and content marketing, engaging audiences across every touchpoint in Malaysia and the region.',
     },
     {
-      icon: '🔒',
-      title: 'Privacy First',
-      description: 'Your data is handled transparently, in line with our published policies.',
+      icon: '🌱',
+      title: 'Sustainable Growth',
+      description:
+        'Long-term value creation through strategic partnerships, ESG-led initiatives, and regional collaborations.',
     },
+  ];
+
+  readonly brands: string[] = [
+    'The Star',
+    'StarBiz7',
+    'Life Inspired',
+    'R.AGE',
+    'Kuali.com',
+    'Star Property',
+    'CarSifu',
+    '988 FM',
+    'Suria FM',
   ];
 }

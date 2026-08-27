@@ -1,21 +1,21 @@
 <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
   <div class="mb-8">
-    <h1 class="text-2xl font-bold text-slate-900">Consent Records</h1>
-    <p class="mt-1 text-sm text-slate-500">Most recent 200 consent decisions submitted by visitors.</p>
+    <h1 class="text-subheading font-semibold text-primary-ink">Consent Records</h1>
+    <p class="mt-1 text-caption text-mid-gray">Most recent 200 consent decisions submitted by visitors.</p>
   </div>
 
   <div class="mb-8 grid gap-4 sm:grid-cols-3">
     <app-card>
-      <p class="text-sm text-slate-500">Total Records</p>
-      <p class="mt-1 text-2xl font-bold text-slate-900">{{ logs().length }}</p>
+      <p class="text-caption text-mid-gray">Total Records</p>
+      <p class="mt-1 text-heading-sm font-semibold text-primary-ink">{{ logs().length }}</p>
     </app-card>
     <app-card>
-      <p class="text-sm text-slate-500">Accepted</p>
-      <p class="mt-1 text-2xl font-bold text-green-600">{{ acceptedCount() }}</p>
+      <p class="text-caption text-mid-gray">Accepted</p>
+      <p class="mt-1 text-heading-sm font-semibold text-primary-ink">{{ acceptedCount() }}</p>
     </app-card>
     <app-card>
-      <p class="text-sm text-slate-500">Declined</p>
-      <p class="mt-1 text-2xl font-bold text-red-600">{{ declinedCount() }}</p>
+      <p class="text-caption text-mid-gray">Declined</p>
+      <p class="mt-1 text-heading-sm font-semibold text-brand-red">{{ declinedCount() }}</p>
     </app-card>
   </div>
 
@@ -39,10 +39,10 @@
       </div>
 
       <div class="flex items-center gap-2">
-        <label for="status-filter" class="text-sm font-medium text-slate-600">Status</label>
+        <label for="status-filter" class="text-caption font-medium text-deep-gray">Status</label>
         <select
           id="status-filter"
-          class="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+          class="rounded-lg border border-hairline px-3 py-2 text-body-sm text-primary-ink focus:border-brand-red focus:outline-none focus:ring-1 focus:ring-brand-red"
           [value]="statusFilter()"
           (change)="onStatusFilterChange($any($event.target).value)"
         >

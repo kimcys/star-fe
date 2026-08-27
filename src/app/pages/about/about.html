@@ -1,0 +1,84 @@
+<app-page-hero
+  title="About Us"
+  subtitle="Inform. Inspire. Innovate. — Malaysia's most established media organisation, with a legacy spanning over five decades."
+></app-page-hero>
+
+<section class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+  <div class="grid gap-10 sm:grid-cols-2">
+    <div>
+      <h2 class="text-body-lg font-semibold text-primary-ink">Who We Are</h2>
+      <p class="mt-4 text-body-sm leading-relaxed text-mid-gray">
+        Star Media Group Berhad (SMG) is one of Malaysia's most trusted and established media
+        organisations. Having evolved beyond our print heritage, we are now a fully integrated,
+        multi-platform media company spanning print, digital, radio, events, and content
+        marketing — connecting audiences across every touchpoint.
+      </p>
+      <p class="mt-4 text-body-sm leading-relaxed text-mid-gray">
+        We uphold journalistic excellence through award-winning work that reflects our
+        commitment to credibility, depth, and public trust, while building a future-ready
+        organisation — one that not only reflects society, but helps shape it for the better.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-body-lg font-semibold text-primary-ink">Our Focus</h2>
+      <p class="mt-4 text-body-sm leading-relaxed text-mid-gray">
+        We are guided by sustainable growth and long-term value creation, pursued through
+        strategic partnerships, ESG-led initiatives, and regional collaborations across
+        Malaysia and beyond.
+      </p>
+      <p class="mt-4 text-body-sm leading-relaxed text-mid-gray">
+        This site demonstrates a consent-compliant, mobile-responsive website for Star Media
+        Group, backed by a PHP/MySQL API for recording and managing cookie consent.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-canvas px-4 py-16 sm:px-6">
+  <div class="mx-auto max-w-5xl">
+    <h2 class="text-body-lg font-semibold text-primary-ink">What We Do</h2>
+    <p class="mt-3 text-body-sm text-mid-gray">
+      Our portfolio spans 50+ brands across news, lifestyle, radio, and marketplace platforms.
+    </p>
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+      @for (group of brandGroups; track group.category) {
+        <app-card>
+          <h3 class="text-body-sm font-semibold text-primary-ink">{{ group.category }}</h3>
+          <p class="mt-2 text-caption text-mid-gray">{{ group.brands }}</p>
+        </app-card>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+  <div class="grid gap-10 sm:grid-cols-2">
+    <app-card>
+      <h2 class="text-body-lg font-semibold text-primary-ink">Contact Us</h2>
+      <ul class="mt-4 space-y-4">
+        @for (detail of contactDetails; track detail.label) {
+          <li class="flex items-start gap-3">
+            <span class="text-xl" aria-hidden="true">{{ detail.icon }}</span>
+            <span>
+              <span class="block text-caption font-medium text-primary-ink">{{ detail.label }}</span>
+              <span class="block text-caption text-mid-gray">{{ detail.value }}</span>
+            </span>
+          </li>
+        }
+      </ul>
+    </app-card>
+
+    <div class="h-80 overflow-hidden rounded-3xl bg-canvas sm:h-full">
+      <iframe
+        class="h-full w-full"
+        [src]="mapUrl"
+        [title]="'Map showing ' + officeAddress"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        style="border:0"
+      ></iframe>
+    </div>
+  </div>
+</section>

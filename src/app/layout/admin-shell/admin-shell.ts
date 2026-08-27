@@ -7,20 +7,20 @@ import { ConsentBannerComponent } from '../../shared/components/consent-banner/c
   selector: 'app-admin-shell',
   imports: [RouterOutlet, RouterLink, ConsentBannerComponent],
   template: `
-    <div class="flex min-h-screen flex-col bg-slate-50">
-      <header class="border-b border-slate-200 bg-slate-900">
-        <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <a routerLink="/admin/dashboard" class="flex items-center gap-2 text-base font-bold text-white">
-            <span class="flex h-8 w-8 items-center justify-center rounded-md bg-red-600 text-white">S</span>
-            Admin Portal
+    <div class="flex min-h-screen flex-col bg-canvas">
+      <header class="sticky top-0 z-30 bg-faded-surface/90 backdrop-blur-xl">
+        <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+          <a routerLink="/admin/dashboard" class="flex items-center gap-3">
+            <img src="star-logo-mark.png" alt="Star Media Group" class="h-9 w-auto" />
+            <span class="text-caption font-medium text-mid-gray">Admin Portal</span>
           </a>
           @if (auth.session().loggedIn) {
             <div class="flex items-center gap-4">
-              <span class="text-sm text-slate-300">{{ auth.session().username }}</span>
+              <span class="text-caption text-mid-gray">{{ auth.session().username }}</span>
               <button
                 type="button"
                 (click)="logout()"
-                class="rounded-lg border border-slate-600 px-3 py-1.5 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-800"
+                class="rounded-full border border-primary-ink px-3 py-1.5 text-caption font-normal text-primary-ink transition-colors hover:bg-cool-wash"
               >
                 Log out
               </button>

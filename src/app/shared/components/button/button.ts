@@ -13,7 +13,7 @@ export type ButtonType = 'button' | 'submit' | 'reset';
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
-    'bg-electric-blue text-white hover:bg-[#0077ed] focus-visible:outline-electric-blue disabled:bg-electric-blue/40',
+    'bg-brand-red text-white hover:bg-[#c01920] focus-visible:outline-brand-red disabled:bg-brand-red/40',
   secondary:
     'bg-primary-ink text-white hover:bg-deep-gray focus-visible:outline-primary-ink disabled:bg-mid-gray',
   outline:

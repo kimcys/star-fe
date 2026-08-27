@@ -14,7 +14,7 @@ interface NavLink {
 export class NavbarComponent {
   readonly links: NavLink[] = [
     { label: 'Home', path: '/' },
-    { label: 'About / Contact', path: '/about-contact' },
+    { label: 'About', path: '/about' },
     { label: 'Privacy Policy', path: '/privacy-policy' },
     { label: 'Terms & Conditions', path: '/terms-conditions' },
   ];
