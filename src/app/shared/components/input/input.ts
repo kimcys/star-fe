@@ -13,7 +13,7 @@ export type InputType = 'text' | 'password' | 'search' | 'email';
       [autocomplete]="autocomplete()"
       [value]="value()"
       (input)="valueChange.emit($any($event.target).value)"
-      class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+      class="w-full rounded-lg border border-hairline px-3 py-2 text-body-sm text-primary-ink focus:border-electric-blue focus:outline-none focus:ring-1 focus:ring-electric-blue"
     />
   `,
 })

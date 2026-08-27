@@ -1,18 +1,18 @@
-<header class="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
-  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-    <a routerLink="/" class="flex items-center gap-2 text-lg font-bold text-slate-900" (click)="closeMobile()">
-      <span class="flex h-8 w-8 items-center justify-center rounded-md bg-red-600 text-white">S</span>
+<header class="sticky top-0 z-30 bg-faded-surface/90 backdrop-blur-xl">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+    <a routerLink="/" class="flex items-center gap-2 text-body-sm font-semibold text-primary-ink" (click)="closeMobile()">
+      <span class="flex h-8 w-8 items-center justify-center rounded-full bg-electric-blue text-white">S</span>
       Star Media Group
     </a>
 
-    <ul class="hidden items-center gap-6 sm:flex">
+    <ul class="hidden items-center gap-8 sm:flex">
       @for (link of links; track link.path) {
         <li>
           <a
             [routerLink]="link.path"
-            routerLinkActive="text-red-600"
+            routerLinkActive="text-primary-ink"
             [routerLinkActiveOptions]="{ exact: link.path === '/' }"
-            class="text-sm font-medium text-slate-600 transition-colors hover:text-red-600"
+            class="text-micro font-normal text-deep-gray transition-colors hover:text-primary-ink"
           >
             {{ link.label }}
           </a>
@@ -22,7 +22,7 @@
 
     <button
       type="button"
-      class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 sm:hidden"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-full text-deep-gray hover:bg-cool-wash sm:hidden"
       (click)="toggleMobile()"
       [attr.aria-expanded]="mobileOpen()"
       aria-label="Toggle navigation menu"
@@ -40,15 +40,15 @@
   </nav>
 
   @if (mobileOpen()) {
-    <ul class="border-t border-slate-200 bg-white px-4 py-3 sm:hidden">
+    <ul class="bg-faded-surface px-4 py-3 sm:hidden">
       @for (link of links; track link.path) {
         <li>
           <a
             [routerLink]="link.path"
-            routerLinkActive="text-red-600"
+            routerLinkActive="text-primary-ink"
             [routerLinkActiveOptions]="{ exact: link.path === '/' }"
             (click)="closeMobile()"
-            class="block rounded-lg px-2 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50"
+            class="block rounded-lg px-2 py-2.5 text-caption font-normal text-deep-gray hover:bg-cool-wash"
           >
             {{ link.label }}
           </a>

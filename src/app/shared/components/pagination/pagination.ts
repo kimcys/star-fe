@@ -6,7 +6,7 @@ import { Component, computed, input, output } from '@angular/core';
   template: `
     @if (totalItems() > 0) {
       <div class="flex flex-col items-center justify-between gap-3 sm:flex-row">
-        <p class="text-sm text-slate-500">
+        <p class="text-caption text-mid-gray">
           Showing {{ rangeStart() }}–{{ rangeEnd() }} of {{ totalItems() }}
         </p>
 
@@ -15,16 +15,16 @@ import { Component, computed, input, output } from '@angular/core';
             type="button"
             [disabled]="page() <= 1"
             (click)="pageChange.emit(page() - 1)"
-            class="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-300 disabled:hover:bg-transparent"
+            class="rounded-full border border-primary-ink px-3 py-1.5 text-caption font-normal text-primary-ink transition-colors hover:bg-cool-wash disabled:cursor-not-allowed disabled:border-hairline disabled:text-quiet-dot disabled:hover:bg-transparent"
           >
             Previous
           </button>
-          <span class="px-2 text-sm text-slate-600">Page {{ page() }} of {{ totalPages() }}</span>
+          <span class="px-2 text-caption text-mid-gray">Page {{ page() }} of {{ totalPages() }}</span>
           <button
             type="button"
             [disabled]="page() >= totalPages()"
             (click)="pageChange.emit(page() + 1)"
-            class="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:text-slate-300 disabled:hover:bg-transparent"
+            class="rounded-full border border-primary-ink px-3 py-1.5 text-caption font-normal text-primary-ink transition-colors hover:bg-cool-wash disabled:cursor-not-allowed disabled:border-hairline disabled:text-quiet-dot disabled:hover:bg-transparent"
           >
             Next
           </button>

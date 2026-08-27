@@ -1,29 +1,29 @@
 @if (consent.showBanner()) {
-  <div class="fixed inset-0 z-50 bg-slate-900/60" aria-hidden="true"></div>
+  <div class="fixed inset-0 z-50 bg-primary-ink/50" aria-hidden="true"></div>
 
   <div
-    class="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 bg-white px-4 py-6 shadow-2xl sm:px-6"
+    class="fixed inset-x-0 bottom-0 z-50 bg-paper px-4 py-6 sm:px-6"
     role="dialog"
     aria-modal="true"
     aria-labelledby="consent-banner-title"
   >
     <div class="mx-auto flex max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div class="flex-1">
-        <h2 id="consent-banner-title" class="text-sm font-semibold text-slate-900">
+        <h2 id="consent-banner-title" class="text-body-sm font-semibold text-primary-ink">
           We value your privacy
         </h2>
-        <p class="mt-1.5 text-sm text-slate-600">
+        <p class="mt-1.5 text-caption text-mid-gray">
           Cookies are necessary for this website to function properly, for performance
           measurement, and to provide you with the best experience.
         </p>
-        <p class="mt-1.5 text-sm text-slate-600">
+        <p class="mt-1.5 text-caption text-mid-gray">
           By continuing to access or use this site, you acknowledge and consent to our use of
           cookies in accordance with our
-          <a routerLink="/terms-conditions" class="font-medium text-red-600 underline hover:text-red-700">
+          <a routerLink="/terms-conditions" class="font-medium text-link-blue hover:underline">
             Terms &amp; Conditions
           </a>
           and
-          <a routerLink="/privacy-policy" class="font-medium text-red-600 underline hover:text-red-700">
+          <a routerLink="/privacy-policy" class="font-medium text-link-blue hover:underline">
             Privacy Statement
           </a>.
         </p>

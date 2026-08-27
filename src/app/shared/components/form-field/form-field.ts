@@ -4,10 +4,10 @@ import { Component, input } from '@angular/core';
   selector: 'app-form-field',
   template: `
     <label class="block">
-      <span class="mb-1.5 block text-sm font-medium text-slate-700">{{ label() }}</span>
+      <span class="mb-1.5 block text-caption font-medium text-deep-gray">{{ label() }}</span>
       <ng-content></ng-content>
       @if (error()) {
-        <span class="mt-1.5 block text-sm text-red-600">{{ error() }}</span>
+        <span class="mt-1.5 block text-caption text-red-600">{{ error() }}</span>
       }
     </label>
   `,

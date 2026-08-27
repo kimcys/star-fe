@@ -9,25 +9,25 @@ export interface TableColumn<T> {
 @Component({
   selector: 'app-table',
   template: `
-    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-      <table class="min-w-full divide-y divide-slate-200 text-sm">
-        <thead class="bg-slate-50">
+    <div class="overflow-x-auto rounded-3xl bg-paper">
+      <table class="min-w-full divide-y divide-hairline text-body-sm">
+        <thead class="bg-canvas">
           <tr>
             @for (col of columns(); track col.key) {
-              <th class="px-4 py-3 text-left font-semibold text-slate-600">{{ col.header }}</th>
+              <th class="px-4 py-3 text-left font-semibold text-deep-gray">{{ col.header }}</th>
             }
           </tr>
         </thead>
-        <tbody class="divide-y divide-slate-100">
+        <tbody class="divide-y divide-hairline">
           @for (row of rows(); track $index) {
-            <tr class="hover:bg-slate-50">
+            <tr class="hover:bg-cool-wash">
               @for (col of columns(); track col.key) {
-                <td class="px-4 py-3 text-slate-700">{{ col.cell(row) }}</td>
+                <td class="px-4 py-3 text-primary-ink">{{ col.cell(row) }}</td>
               }
             </tr>
           } @empty {
             <tr>
-              <td [attr.colspan]="columns().length" class="px-4 py-8 text-center text-slate-400">
+              <td [attr.colspan]="columns().length" class="px-4 py-8 text-center text-quiet-dot">
                 {{ emptyMessage() }}
               </td>
             </tr>

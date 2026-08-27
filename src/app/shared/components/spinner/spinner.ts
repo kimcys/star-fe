@@ -5,7 +5,7 @@ import { Component, input } from '@angular/core';
   template: `
     <div class="flex items-center justify-center" [style.padding.px]="padding()">
       <span
-        class="animate-spin rounded-full border-4 border-slate-200 border-t-red-600"
+        class="animate-spin rounded-full border-4 border-cool-wash border-t-electric-blue"
         [style.width.px]="size()"
         [style.height.px]="size()"
         role="status"

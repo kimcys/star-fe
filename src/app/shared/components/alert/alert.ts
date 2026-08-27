@@ -5,14 +5,14 @@ export type AlertTone = 'error' | 'success' | 'info';
 const TONE_CLASSES: Record<AlertTone, string> = {
   error: 'bg-red-50 text-red-700 ring-red-600/20',
   success: 'bg-green-50 text-green-700 ring-green-600/20',
-  info: 'bg-blue-50 text-blue-700 ring-blue-600/20',
+  info: 'bg-canvas text-primary-ink ring-hairline',
 };
 
 @Component({
   selector: 'app-alert',
   template: `
     <div
-      class="flex items-start gap-2 rounded-lg px-4 py-3 text-sm ring-1 ring-inset"
+      class="flex items-start gap-2 rounded-2xl px-4 py-3 text-body-sm ring-1 ring-inset"
       [class]="TONE_CLASSES[tone()]"
       role="alert"
     >

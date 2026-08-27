@@ -13,7 +13,7 @@ export class CardComponent {
   padded = input(true);
 
   classes(): string {
-    const padding = this.padded() ? ' p-6' : '';
-    return `rounded-2xl border border-slate-200 bg-white shadow-sm${padding}`;
+    const padding = this.padded() ? ' p-7' : '';
+    return `rounded-3xl bg-paper${padding}`;
   }
 }

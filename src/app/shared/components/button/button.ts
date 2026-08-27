@@ -13,15 +13,15 @@ export type ButtonType = 'button' | 'submit' | 'reset';
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
-    'bg-red-600 text-white hover:bg-red-700 focus-visible:outline-red-600 disabled:bg-red-300',
+    'bg-electric-blue text-white hover:bg-[#0077ed] focus-visible:outline-electric-blue disabled:bg-electric-blue/40',
   secondary:
-    'bg-slate-900 text-white hover:bg-slate-800 focus-visible:outline-slate-900 disabled:bg-slate-400',
+    'bg-primary-ink text-white hover:bg-deep-gray focus-visible:outline-primary-ink disabled:bg-mid-gray',
   outline:
-    'border border-slate-300 text-slate-700 hover:bg-slate-50 focus-visible:outline-slate-400 disabled:text-slate-300',
+    'border border-primary-ink text-primary-ink hover:bg-cool-wash focus-visible:outline-mid-gray disabled:text-mid-gray disabled:border-hairline',
   'outline-light':
     'border border-white/40 text-white hover:bg-white/10 focus-visible:outline-white disabled:text-white/40',
   ghost:
-    'text-slate-600 hover:bg-slate-100 focus-visible:outline-slate-300 disabled:text-slate-300',
+    'text-mid-gray hover:bg-cool-wash focus-visible:outline-hairline disabled:text-quiet-dot',
   danger:
     'bg-white text-red-600 border border-red-300 hover:bg-red-50 focus-visible:outline-red-400 disabled:text-red-200',
 };
@@ -66,7 +66,7 @@ export class ButtonComponent {
 
   classes(): string {
     const base =
-      'inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed';
+      'inline-flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-body-sm font-normal transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed';
     const width = this.fullWidth() ? ' w-full' : '';
     return `${base} ${VARIANT_CLASSES[this.variant()]}${width}`;
   }
