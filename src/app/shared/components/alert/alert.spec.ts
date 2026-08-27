@@ -28,6 +28,6 @@ describe('AlertComponent', () => {
     fixture.componentInstance.tone = 'error';
     fixture.detectChanges();
     const div: HTMLDivElement = fixture.nativeElement.querySelector('[role="alert"]');
-    expect(div.className).toContain('bg-red-50');
+    expect(div.className).toContain('bg-danger-soft');
   });
 });

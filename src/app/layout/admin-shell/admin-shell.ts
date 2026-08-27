@@ -5,10 +5,19 @@ import { ConsentBannerComponent } from '../../shared/components/consent-banner/c
 import { LogoComponent } from '../../shared/components/logo/logo';
 import { TopbarComponent } from '../../shared/components/topbar/topbar';
 import { ButtonComponent } from '../../shared/components/button/button';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle';
 
 @Component({
   selector: 'app-admin-shell',
-  imports: [RouterOutlet, RouterLink, ConsentBannerComponent, LogoComponent, TopbarComponent, ButtonComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    ConsentBannerComponent,
+    LogoComponent,
+    TopbarComponent,
+    ButtonComponent,
+    ThemeToggleComponent,
+  ],
   templateUrl: './admin-shell.html',
 })
 export class AdminShellComponent {

@@ -21,7 +21,10 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
     'bg-brand-red text-white hover:bg-[#c01920] focus-visible:outline-brand-red disabled:bg-brand-red/40',
   secondary:
-    'bg-primary-ink text-white hover:bg-deep-gray focus-visible:outline-primary-ink disabled:bg-mid-gray',
+    // text-paper (not text-white): paired with bg-primary-ink, paper and
+    // primary-ink invert opposite to each other across themes, so this
+    // stays high-contrast in both light and dark mode.
+    'bg-primary-ink text-paper hover:bg-deep-gray focus-visible:outline-primary-ink disabled:bg-mid-gray',
   outline:
     'border border-primary-ink text-primary-ink hover:bg-cool-wash focus-visible:outline-mid-gray disabled:text-mid-gray disabled:border-hairline',
   'outline-light':
@@ -29,7 +32,7 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   ghost:
     'text-mid-gray hover:bg-cool-wash focus-visible:outline-hairline disabled:text-quiet-dot',
   danger:
-    'bg-white text-red-600 border border-red-300 hover:bg-red-50 focus-visible:outline-red-400 disabled:text-red-200',
+    'bg-paper text-danger border border-danger-border hover:bg-danger-soft focus-visible:outline-danger disabled:text-danger/40',
 };
 
 @Component({

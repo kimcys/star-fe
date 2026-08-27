@@ -1,1 +1,5 @@
-<img src="star-logo-mark.png" alt="Star Media Group" [class]="'w-auto ' + heightClass()" />
+@if (theme.theme() === 'dark') {
+  <img src="star-logo-mark-dark.png" alt="Star Media Group" [class]="'w-auto ' + heightClass()" />
+} @else {
+  <img src="star-logo-mark.png" alt="Star Media Group" [class]="'w-auto ' + heightClass()" />
+}

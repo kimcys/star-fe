@@ -25,6 +25,19 @@
   --color-indigo: #596680;
   --color-midnight: #2e3642;
 
+  /* A permanently-dark decorative surface (e.g. the home hero band) that
+     should NOT flip with the light/dark theme toggle — unlike
+     --color-primary-ink, which is a semantic foreground token that does. */
+  --color-ink-fixed: #1d1d1f;
+
+  /* Status colors — named tokens (rather than raw Tailwind red/green)
+     so dark mode only has to be defined once, below. */
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef2f2;
+  --color-danger-border: #fca5a5;
+  --color-success: #16a34a;
+  --color-success-soft: #f0fdf4;
+
   /* Typography */
   --font-sf-pro-display:
     'SF Pro Display', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -75,6 +88,37 @@
   --radius-full-3: 9999px;
 }
 
+:root {
+  color-scheme: light;
+}
+
+/* Dark mode overrides the same semantic custom properties the @theme
+   block above generates — every `bg-canvas`/`text-primary-ink`/etc.
+   utility already reads from these vars, so re-pointing them here is
+   enough to re-theme the whole app with no per-component `dark:`
+   classes needed. --color-ink-fixed and --color-brand-red are
+   intentionally left unset here (see their definitions above). */
+.dark {
+  color-scheme: dark;
+
+  --color-primary-ink: #f5f5f7;
+  --color-mid-gray: #98989d;
+  --color-deep-gray: #c7c7cc;
+  --color-hairline: #3a3a3c;
+  --color-canvas: #1c1c1e;
+  --color-paper: #000000;
+  --color-cool-wash: #2c2c2e;
+  --color-faded-surface: #1c1c1e;
+  --color-quiet-dot: #8e8e93;
+  --color-link-blue: #4da6ff;
+
+  --color-danger: #f87171;
+  --color-danger-soft: #450a0a;
+  --color-danger-border: #7f1d1d;
+  --color-success: #4ade80;
+  --color-success-soft: #052e16;
+}
+
 html,
 body {
   height: 100%;
@@ -85,4 +129,7 @@ body {
   background-color: var(--color-paper);
   color: var(--color-primary-ink);
   -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }

@@ -18,23 +18,27 @@
     }
   </ul>
 
-  <button
-    type="button"
-    class="inline-flex h-10 w-10 items-center justify-center rounded-full text-deep-gray hover:bg-cool-wash sm:hidden"
-    (click)="toggleMobile()"
-    [attr.aria-expanded]="mobileOpen()"
-    aria-label="Toggle navigation menu"
-  >
-    @if (mobileOpen()) {
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    } @else {
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
-      </svg>
-    }
-  </button>
+  <div class="flex items-center gap-1">
+    <app-theme-toggle></app-theme-toggle>
+
+    <button
+      type="button"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-full text-deep-gray hover:bg-cool-wash sm:hidden"
+      (click)="toggleMobile()"
+      [attr.aria-expanded]="mobileOpen()"
+      aria-label="Toggle navigation menu"
+    >
+      @if (mobileOpen()) {
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      } @else {
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+        </svg>
+      }
+    </button>
+  </div>
 
   <ng-container ngProjectAs="[below]">
     @if (mobileOpen()) {

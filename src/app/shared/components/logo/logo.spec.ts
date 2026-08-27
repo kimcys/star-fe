@@ -22,4 +22,12 @@ describe('LogoComponent', () => {
     expect(img.className).toContain('h-8');
     expect(img.className).not.toContain('h-9');
   });
+
+  it('swaps to the dark-mode logo asset when the theme is dark', () => {
+    const fixture = TestBed.createComponent(LogoComponent);
+    fixture.componentInstance.theme.toggle();
+    fixture.detectChanges();
+    const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
+    expect(img.getAttribute('src')).toContain('star-logo-mark-dark.png');
+  });
 });

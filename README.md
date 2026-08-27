@@ -22,6 +22,9 @@ view submitted consent decisions. Consumes the JSON API in the sibling
   below) — flat borderless surfaces, pill buttons, an 8-step type
   scale, all as Tailwind v4 `@theme` tokens, with the Star Media Group
   brand red as the single accent colour instead of Apple's blue
+- ✅ Dark mode (see [Dark mode](#dark-mode) below) — a toggle in the
+  navbar and admin topbar, system-preference-aware, persisted across
+  visits, covering every page including the admin portal
 - ✅ Real Star Media Group branding — the actual logo asset
   (`public/star-logo.png` / a cropped wordmark `star-logo-mark.png`)
   and copy adapted from [starmediagroup.my](https://www.starmediagroup.my)
@@ -34,14 +37,15 @@ view submitted consent decisions. Consumes the JSON API in the sibling
   `app-button`, `app-card`, `app-page-hero`, `app-legal-sections`,
   `app-form-field`, `app-alert`, `app-input`, `app-spinner`,
   `app-table`, `app-pagination`, `app-logo`, `app-topbar`,
-  `app-section-header`, `app-stat-tile` — plus two shared data
-  sources (`shared/nav-links.ts`, `shared/site-info.ts`) so things
-  like the nav links or office address exist in exactly one place
+  `app-section-header`, `app-stat-tile`, `app-theme-toggle` — plus two
+  shared data sources (`shared/nav-links.ts`, `shared/site-info.ts`)
+  so things like the nav links or office address exist in exactly one
+  place
 - ✅ Every component template is a linked `.html` file (`templateUrl`)
   — no inline templates anywhere in the app
 - ✅ Full unit test coverage — a co-located `*.spec.ts` next to every
-  component, page, layout, service, guard, and interceptor (31 spec
-  files, 83 tests) using Vitest + jsdom via Angular's built-in test
+  component, page, layout, service, guard, and interceptor (33 spec
+  files, 89 tests) using Vitest + jsdom via Angular's built-in test
   runner
 
 ## Requirements
@@ -131,20 +135,80 @@ The one brand-specific override: primary actions use
 `public/star-logo.png`) rather than Apple's blue, since this is Star
 Media Group's own masthead colour.
 
+## Dark mode
+
+Because every colour is already a semantic `@theme` token, dark mode
+is a single override block in `src/styles.css`:
+
+```css
+.dark {
+  --color-primary-ink: #f5f5f7;
+  --color-paper: #000000;
+  /* ...and so on for every other semantic token */
+}
+```
+
+`ThemeService` (`core/services/theme.service.ts`) toggles a `dark`
+class on `<html>` — nothing else needs to know dark mode exists, since
+every `bg-canvas` / `text-primary-ink` / etc. utility already resolves
+through these custom properties. The one exception is
+`--color-ink-fixed`, used only by the home page's hero band: that
+section is *meant* to stay a fixed dark colour regardless of theme
+(an intentional Apple-style dark accent band, not the page background),
+so it deliberately isn't overridden in `.dark`.
+
+- **Toggle**: the sun/moon button in the navbar (public site) and the
+  admin topbar — both routes share the same toggle and the same
+  persisted preference.
+- **Persistence**: `localStorage` (`star-media-theme`); on first visit
+  with no stored preference, it falls back to the OS/browser's
+  `prefers-color-scheme`.
+- **Status/error colours**: `alert`, the button's `danger` variant, and
+  form-field error text use their own named tokens
+  (`--color-danger`, `--color-success`, ...) instead of raw Tailwind
+  `red-*`/`green-*` classes, specifically so they also get a dark-mode
+  definition rather than being invisible/illegible on a black surface.
+- **Logo**: a second asset, `public/star-logo-mark-dark.png` (same red
+  "Star" wordmark, the "MEDIA GROUP" subtext recoloured light grey),
+  swapped in by `app-logo` based on `ThemeService.theme()` — the
+  original dark-gray-on-transparent version has poor contrast on a
+  black background.
+
+> **If you add a new component:** style it with the semantic tokens
+> (`bg-paper`, `text-primary-ink`, `border-hairline`, ...) rather than
+> Tailwind's raw palette (`bg-white`, `text-red-600`, ...) — that's
+> what makes it dark-mode-aware for free. `ShellComponent`'s wrapper
+> div originally had a hardcoded `bg-white` that stayed white in dark
+> mode until it was caught and switched to `bg-paper`; that's the
+> failure mode to avoid.
+
+### Testing dark mode
+
+`ThemeService` reads/writes real `localStorage` and toggles a real
+class on `document.documentElement`. Because this project's spec files
+all share one process (`isolate: false`, the Vitest default here), a
+test that leaves the theme toggled would otherwise leak into every
+spec file that runs after it. `src/test-setup.ts` — registered via
+`architect.test.options.setupFiles` in `angular.json` — resets both
+after every single test, project-wide.
+
 ## Project structure
 
 ```
-src/app/
-  core/            # config, services (ConsentService, AdminAuthService,
-                    # ConsentLogsService), the API interceptor, the
-                    # admin route guard, and shared models
-  shared/
-    nav-links.ts       # single source of the 4 public nav links
-    site-info.ts       # single source of office address/phone/email/
-                        # hours and the legal "last updated" date
-    components/        # reusable, presentation-only UI building blocks
-  layout/          # ShellComponent (public site) and AdminShellComponent
-  pages/           # one folder per routed page
+src/
+  test-setup.ts        # global Vitest setup (resets localStorage / the
+                        # <html> "dark" class after every test)
+  app/
+    core/            # config, services (ConsentService, AdminAuthService,
+                      # ConsentLogsService, ThemeService), the API
+                      # interceptor, the admin route guard, and shared models
+    shared/
+      nav-links.ts       # single source of the 4 public nav links
+      site-info.ts       # single source of office address/phone/email/
+                          # hours and the legal "last updated" date
+      components/        # reusable, presentation-only UI building blocks
+    layout/          # ShellComponent (public site) and AdminShellComponent
+    pages/           # one folder per routed page
 ```
 
 Routing (`app.routes.ts`) lazy-loads every page with `loadComponent`.
