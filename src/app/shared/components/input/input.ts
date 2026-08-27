@@ -5,17 +5,7 @@ export type InputType = 'text' | 'password' | 'search' | 'email';
 @Component({
   selector: 'app-input',
   host: { class: 'block' },
-  template: `
-    <input
-      [type]="type()"
-      [name]="name()"
-      [placeholder]="placeholder()"
-      [autocomplete]="autocomplete()"
-      [value]="value()"
-      (input)="valueChange.emit($any($event.target).value)"
-      class="w-full rounded-lg border border-hairline px-3 py-2 text-body-sm text-primary-ink focus:border-brand-red focus:outline-none focus:ring-1 focus:ring-brand-red"
-    />
-  `,
+  templateUrl: './input.html',
 })
 export class InputComponent {
   type = input<InputType>('text');

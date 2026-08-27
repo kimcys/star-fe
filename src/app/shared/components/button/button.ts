@@ -36,31 +36,7 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   selector: 'app-button',
   imports: [RouterLink, NgTemplateOutlet],
   host: { '[class.block]': 'fullWidth()' },
-  template: `
-    <ng-template #label>
-      @if (loading()) {
-        <span
-          class="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
-          aria-hidden="true"
-        ></span>
-      }
-      <ng-content></ng-content>
-    </ng-template>
-
-    @if (link()) {
-      <a [routerLink]="link()" [class]="classes()">
-        <ng-container [ngTemplateOutlet]="label"></ng-container>
-      </a>
-    } @else {
-      <button
-        [type]="type()"
-        [disabled]="disabled() || loading()"
-        [class]="classes()"
-      >
-        <ng-container [ngTemplateOutlet]="label"></ng-container>
-      </button>
-    }
-  `,
+  templateUrl: './button.html',
 })
 export class ButtonComponent {
   variant = input<ButtonVariant>('primary');

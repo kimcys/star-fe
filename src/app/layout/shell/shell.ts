@@ -7,15 +7,6 @@ import { ConsentBannerComponent } from '../../shared/components/consent-banner/c
 @Component({
   selector: 'app-shell',
   imports: [RouterOutlet, NavbarComponent, FooterComponent, ConsentBannerComponent],
-  template: `
-    <div class="flex min-h-screen flex-col bg-white">
-      <app-navbar></app-navbar>
-      <main class="flex-1">
-        <router-outlet></router-outlet>
-      </main>
-      <app-footer></app-footer>
-    </div>
-    <app-consent-banner></app-consent-banner>
-  `,
+  templateUrl: './shell.html',
 })
 export class ShellComponent {}

@@ -1,10 +1,10 @@
 # Star Media Group — Frontend (star-fe)
 
 Angular 22 + Tailwind CSS v4 frontend for the practical assessment. A
-4-page public site (Home, About Us / Contact Us, Privacy Policy, Terms &
-Conditions) with a blocking cookie-consent banner, plus a bonus admin
-portal to view submitted consent decisions. Consumes the JSON API in the
-sibling [`star-be`](../star-be) repo.
+4-page public site (Home, About, Privacy Policy, Terms & Conditions)
+with a blocking cookie-consent banner, plus a bonus admin portal to
+view submitted consent decisions. Consumes the JSON API in the sibling
+[`star-be`](../star-be) repo.
 
 ## Status
 
@@ -16,11 +16,33 @@ sibling [`star-be`](../star-be) repo.
   Privacy Policy, re-checked via the backend on every load since the
   real consent cookies are httponly
 - ✅ Admin login + dashboard (route-guarded), listing consent records
-  from the backend
-- ✅ Built from small reusable components (`app-button`, `app-card`,
-  `app-page-hero`, `app-legal-sections`, `app-form-field`, `app-alert`,
-  `app-badge`, `app-spinner`, `app-table`) shared across pages instead
-  of duplicating markup
+  from the backend — restyled to match the public site's design system
+  (shared topbar, logo, and stat tiles, not a separate look)
+- ✅ Apple-inspired design system (see [Design system](#design-system)
+  below) — flat borderless surfaces, pill buttons, an 8-step type
+  scale, all as Tailwind v4 `@theme` tokens, with the Star Media Group
+  brand red as the single accent colour instead of Apple's blue
+- ✅ Real Star Media Group branding — the actual logo asset
+  (`public/star-logo.png` / a cropped wordmark `star-logo-mark.png`)
+  and copy adapted from [starmediagroup.my](https://www.starmediagroup.my)
+  across Home, About, Privacy Policy, and Terms & Conditions (company
+  profile, brand portfolio, real office address/phone/email/hours)
+- ✅ Google Maps embed of the office location (Menara Star) on the
+  About page — see [Google Maps](#google-maps) below for the one-time
+  API setup this needs
+- ✅ Built from small, reusable, presentation-only components —
+  `app-button`, `app-card`, `app-page-hero`, `app-legal-sections`,
+  `app-form-field`, `app-alert`, `app-input`, `app-spinner`,
+  `app-table`, `app-pagination`, `app-logo`, `app-topbar`,
+  `app-section-header`, `app-stat-tile` — plus two shared data
+  sources (`shared/nav-links.ts`, `shared/site-info.ts`) so things
+  like the nav links or office address exist in exactly one place
+- ✅ Every component template is a linked `.html` file (`templateUrl`)
+  — no inline templates anywhere in the app
+- ✅ Full unit test coverage — a co-located `*.spec.ts` next to every
+  component, page, layout, service, guard, and interceptor (31 spec
+  files, 83 tests) using Vitest + jsdom via Angular's built-in test
+  runner
 
 ## Requirements
 
@@ -53,6 +75,20 @@ It defaults to `http://localhost:8000`, matching the backend's
 > reappear on every reload even after accepting. Keeping both frontend
 > and backend on the `localhost` host keeps them same-site.
 
+### Google Maps
+
+The About page (`src/app/pages/about/about.ts`) embeds the office
+location via the **Maps Embed API**. The key is a plain constant in
+that file (`GOOGLE_MAPS_API_KEY`) — for a real deployment this should
+move to an environment-specific config instead of being committed. For
+the map to actually render (rather than a Google "this API is not
+activated" error), the key's Google Cloud project needs:
+
+1. **Maps Embed API** enabled — APIs & Services → Library
+2. **Billing enabled** on that project (required even within the free tier)
+3. If the key has HTTP referrer restrictions, both `localhost` (dev)
+   and the production domain allow-listed
+
 ## Building
 
 ```bash
@@ -62,8 +98,38 @@ npm run build     # outputs to dist/star-fe
 ## Running unit tests
 
 ```bash
-npm test          # Vitest
+npm test                        # ng test — watch mode in an interactive terminal
+npx ng test --watch=false       # single run, e.g. for CI
+npx ng test --coverage          # with a coverage report
+npx ng test --filter="Button"   # only tests matching a name pattern
 ```
+
+Uses Angular's built-in Vitest-based unit-test builder
+(`@angular/build:unit-test`) with a jsdom environment — no separate
+`vitest.config.ts` needed. Every `*.spec.ts` under `src/` is picked up
+automatically; new components should get one alongside them following
+the existing pattern (standalone `TestBed.configureTestingModule`,
+`provideRouter([])` when `RouterLink` is involved,
+`provideHttpClient()` + `provideHttpClientTesting()` /
+`HttpTestingController` for anything backend-backed).
+
+## Design system
+
+The visual language (colours, type scale, spacing, radii) lives as
+Tailwind v4 `@theme` tokens in [`src/styles.css`](src/styles.css) —
+an Apple-product-page-inspired system (flat, borderless, pill buttons,
+generous whitespace) documented in `design.md` at the repo root, with
+one deliberate deviation: the numeric `--spacing-*` overrides from
+that spec were **not** imported, since they redefine Tailwind's
+default spacing scale keys (e.g. `p-4` would silently drop from 16px
+to 4px) and would have changed spacing on every page, not just the
+ones using the new tokens. Existing Tailwind spacing numbers already
+land on the same pixel values (e.g. `p-7` = 28px).
+
+The one brand-specific override: primary actions use
+`--color-brand-red` (`#DA2128`, sampled directly from
+`public/star-logo.png`) rather than Apple's blue, since this is Star
+Media Group's own masthead colour.
 
 ## Project structure
 
@@ -72,9 +138,16 @@ src/app/
   core/            # config, services (ConsentService, AdminAuthService,
                     # ConsentLogsService), the API interceptor, the
                     # admin route guard, and shared models
-  shared/components/  # reusable, presentation-only UI building blocks
+  shared/
+    nav-links.ts       # single source of the 4 public nav links
+    site-info.ts       # single source of office address/phone/email/
+                        # hours and the legal "last updated" date
+    components/        # reusable, presentation-only UI building blocks
   layout/          # ShellComponent (public site) and AdminShellComponent
   pages/           # one folder per routed page
 ```
 
 Routing (`app.routes.ts`) lazy-loads every page with `loadComponent`.
+Every component template is a linked `.html` file next to its `.ts`
+(no inline `template:` strings), and every component/service/guard/
+interceptor has a co-located `.spec.ts`.

@@ -9,26 +9,7 @@ import { ButtonComponent } from '../../shared/components/button/button';
 @Component({
   selector: 'app-admin-shell',
   imports: [RouterOutlet, RouterLink, ConsentBannerComponent, LogoComponent, TopbarComponent, ButtonComponent],
-  template: `
-    <div class="flex min-h-screen flex-col bg-canvas">
-      <app-topbar>
-        <a routerLink="/admin/dashboard" class="flex items-center gap-3">
-          <app-logo></app-logo>
-          <span class="text-caption font-medium text-mid-gray">Admin Portal</span>
-        </a>
-        @if (auth.session().loggedIn) {
-          <div class="flex items-center gap-4">
-            <span class="text-caption text-mid-gray">{{ auth.session().username }}</span>
-            <app-button variant="outline" size="sm" (click)="logout()">Log out</app-button>
-          </div>
-        }
-      </app-topbar>
-      <main class="flex-1">
-        <router-outlet></router-outlet>
-      </main>
-    </div>
-    <app-consent-banner></app-consent-banner>
-  `,
+  templateUrl: './admin-shell.html',
 })
 export class AdminShellComponent {
   constructor(

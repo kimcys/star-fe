@@ -3,11 +3,7 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'app-card',
   host: { class: 'block' },
-  template: `
-    <div [class]="classes()">
-      <ng-content></ng-content>
-    </div>
-  `,
+  templateUrl: './card.html',
 })
 export class CardComponent {
   padded = input(true);

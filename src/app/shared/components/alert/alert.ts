@@ -10,15 +10,7 @@ const TONE_CLASSES: Record<AlertTone, string> = {
 
 @Component({
   selector: 'app-alert',
-  template: `
-    <div
-      class="flex items-start gap-2 rounded-2xl px-4 py-3 text-body-sm ring-1 ring-inset"
-      [class]="TONE_CLASSES[tone()]"
-      role="alert"
-    >
-      <ng-content></ng-content>
-    </div>
-  `,
+  templateUrl: './alert.html',
 })
 export class AlertComponent {
   tone = input<AlertTone>('info');
