@@ -1,23 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-
-interface NavLink {
-  label: string;
-  path: string;
-}
+import { NAV_LINKS } from '../../nav-links';
+import { LogoComponent } from '../logo/logo';
+import { TopbarComponent } from '../topbar/topbar';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, LogoComponent, TopbarComponent],
   templateUrl: './navbar.html',
 })
 export class NavbarComponent {
-  readonly links: NavLink[] = [
-    { label: 'Home', path: '/' },
-    { label: 'About', path: '/about' },
-    { label: 'Privacy Policy', path: '/privacy-policy' },
-    { label: 'Terms & Conditions', path: '/terms-conditions' },
-  ];
+  readonly links = NAV_LINKS;
 
   readonly mobileOpen = signal(false);
 

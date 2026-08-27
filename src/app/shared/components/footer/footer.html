@@ -1,13 +1,12 @@
 <footer class="bg-canvas">
   <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
     <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
-      <img src="star-logo-mark.png" alt="Star Media Group" class="h-8 w-auto" />
+      <app-logo heightClass="h-8"></app-logo>
 
       <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-caption text-mid-gray">
-        <li><a routerLink="/" class="hover:text-link-blue">Home</a></li>
-        <li><a routerLink="/about" class="hover:text-link-blue">About</a></li>
-        <li><a routerLink="/privacy-policy" class="hover:text-link-blue">Privacy Policy</a></li>
-        <li><a routerLink="/terms-conditions" class="hover:text-link-blue">Terms &amp; Conditions</a></li>
+        @for (link of links; track link.path) {
+          <li><a [routerLink]="link.path" class="hover:text-link-blue">{{ link.label }}</a></li>
+        }
       </ul>
     </div>
 

@@ -1,12 +1,12 @@
 import { Component, computed, signal } from '@angular/core';
 import { ConsentLogsService } from '../../../core/services/consent-logs.service';
 import { ConsentLog } from '../../../core/models/consent.model';
-import { CardComponent } from '../../../shared/components/card/card';
 import { TableColumn, TableComponent } from '../../../shared/components/table/table';
 import { SpinnerComponent } from '../../../shared/components/spinner/spinner';
 import { AlertComponent } from '../../../shared/components/alert/alert';
 import { InputComponent } from '../../../shared/components/input/input';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination';
+import { StatTileComponent } from '../../../shared/components/stat-tile/stat-tile';
 
 type StatusFilter = 'all' | 'accepted' | 'declined';
 
@@ -15,12 +15,12 @@ const PAGE_SIZE = 10;
 @Component({
   selector: 'app-admin-dashboard',
   imports: [
-    CardComponent,
     TableComponent,
     SpinnerComponent,
     AlertComponent,
     InputComponent,
     PaginationComponent,
+    StatTileComponent,
   ],
   templateUrl: './admin-dashboard.html',
 })

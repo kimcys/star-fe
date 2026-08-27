@@ -1,8 +1,10 @@
 import { Component, computed, input, output } from '@angular/core';
+import { ButtonComponent } from '../button/button';
 
 @Component({
   selector: 'app-pagination',
   host: { class: 'block' },
+  imports: [ButtonComponent],
   template: `
     @if (totalItems() > 0) {
       <div class="flex flex-col items-center justify-between gap-3 sm:flex-row">
@@ -11,23 +13,23 @@ import { Component, computed, input, output } from '@angular/core';
         </p>
 
         <div class="flex items-center gap-2">
-          <button
-            type="button"
+          <app-button
+            variant="outline"
+            size="sm"
             [disabled]="page() <= 1"
             (click)="pageChange.emit(page() - 1)"
-            class="rounded-full border border-primary-ink px-3 py-1.5 text-caption font-normal text-primary-ink transition-colors hover:bg-cool-wash disabled:cursor-not-allowed disabled:border-hairline disabled:text-quiet-dot disabled:hover:bg-transparent"
           >
             Previous
-          </button>
+          </app-button>
           <span class="px-2 text-caption text-mid-gray">Page {{ page() }} of {{ totalPages() }}</span>
-          <button
-            type="button"
+          <app-button
+            variant="outline"
+            size="sm"
             [disabled]="page() >= totalPages()"
             (click)="pageChange.emit(page() + 1)"
-            class="rounded-full border border-primary-ink px-3 py-1.5 text-caption font-normal text-primary-ink transition-colors hover:bg-cool-wash disabled:cursor-not-allowed disabled:border-hairline disabled:text-quiet-dot disabled:hover:bg-transparent"
           >
             Next
-          </button>
+          </app-button>
         </div>
       </div>
     }

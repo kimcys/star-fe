@@ -2,6 +2,13 @@ import { Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero';
 import { CardComponent } from '../../shared/components/card/card';
+import {
+  OFFICE_ADDRESS,
+  OFFICE_EMAIL,
+  OFFICE_HOTLINE,
+  OFFICE_HOURS,
+  OFFICE_MAIN_PHONE,
+} from '../../shared/site-info';
 
 interface ContactDetail {
   icon: string;
@@ -14,8 +21,6 @@ interface BrandGroup {
   brands: string;
 }
 
-const OFFICE_ADDRESS =
-  'Menara Star, 15, Jalan 16/11, Pusat Perdagangan Phileo Damansara, 46350 Petaling Jaya, Selangor';
 const GOOGLE_MAPS_API_KEY = 'AIzaSyBQquW7KSr2f9u_JjX8MjNvotIQV8J_ZRc';
 
 @Component({
@@ -30,9 +35,9 @@ export class AboutComponent {
 
   readonly contactDetails: ContactDetail[] = [
     { icon: '📍', label: 'Address', value: OFFICE_ADDRESS },
-    { icon: '📞', label: 'Phone', value: '+603 7967 1388 · Customer Hotline 1300 88 7827' },
-    { icon: '✉️', label: 'Email', value: 'customerservice@thestar.com.my' },
-    { icon: '🕘', label: 'Office Hours', value: 'Monday – Friday, 9:00 AM – 5:30 PM' },
+    { icon: '📞', label: 'Phone', value: `${OFFICE_MAIN_PHONE} · Customer Hotline ${OFFICE_HOTLINE}` },
+    { icon: '✉️', label: 'Email', value: OFFICE_EMAIL },
+    { icon: '🕘', label: 'Office Hours', value: OFFICE_HOURS },
   ];
 
   readonly brandGroups: BrandGroup[] = [

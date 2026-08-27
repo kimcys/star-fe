@@ -1,58 +1,58 @@
-<header class="sticky top-0 z-30 bg-faded-surface/90 backdrop-blur-xl">
-  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-    <a routerLink="/" class="flex items-center" (click)="closeMobile()">
-      <img src="star-logo-mark.png" alt="Star Media Group" class="h-9 w-auto" />
-    </a>
+<app-topbar>
+  <a routerLink="/" class="flex items-center" (click)="closeMobile()">
+    <app-logo></app-logo>
+  </a>
 
-    <ul class="hidden items-center gap-8 sm:flex">
-      @for (link of links; track link.path) {
-        <li>
-          <a
-            [routerLink]="link.path"
-            routerLinkActive="text-primary-ink"
-            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
-            class="text-micro font-normal text-deep-gray transition-colors hover:text-primary-ink"
-          >
-            {{ link.label }}
-          </a>
-        </li>
-      }
-    </ul>
+  <ul class="hidden items-center gap-8 sm:flex">
+    @for (link of links; track link.path) {
+      <li>
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="text-primary-ink"
+          [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+          class="text-micro font-normal text-deep-gray transition-colors hover:text-primary-ink"
+        >
+          {{ link.label }}
+        </a>
+      </li>
+    }
+  </ul>
 
-    <button
-      type="button"
-      class="inline-flex h-10 w-10 items-center justify-center rounded-full text-deep-gray hover:bg-cool-wash sm:hidden"
-      (click)="toggleMobile()"
-      [attr.aria-expanded]="mobileOpen()"
-      aria-label="Toggle navigation menu"
-    >
-      @if (mobileOpen()) {
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      } @else {
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
-        </svg>
-      }
-    </button>
-  </nav>
+  <button
+    type="button"
+    class="inline-flex h-10 w-10 items-center justify-center rounded-full text-deep-gray hover:bg-cool-wash sm:hidden"
+    (click)="toggleMobile()"
+    [attr.aria-expanded]="mobileOpen()"
+    aria-label="Toggle navigation menu"
+  >
+    @if (mobileOpen()) {
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    } @else {
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+      </svg>
+    }
+  </button>
 
-  @if (mobileOpen()) {
-    <ul class="bg-faded-surface px-4 py-3 sm:hidden">
-      @for (link of links; track link.path) {
-        <li>
-          <a
-            [routerLink]="link.path"
-            routerLinkActive="text-primary-ink"
-            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
-            (click)="closeMobile()"
-            class="block rounded-lg px-2 py-2.5 text-caption font-normal text-deep-gray hover:bg-cool-wash"
-          >
-            {{ link.label }}
-          </a>
-        </li>
-      }
-    </ul>
-  }
-</header>
+  <ng-container ngProjectAs="[below]">
+    @if (mobileOpen()) {
+      <ul class="bg-faded-surface px-4 py-3 sm:hidden">
+        @for (link of links; track link.path) {
+          <li>
+            <a
+              [routerLink]="link.path"
+              routerLinkActive="text-primary-ink"
+              [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+              (click)="closeMobile()"
+              class="block rounded-lg px-2 py-2.5 text-caption font-normal text-deep-gray hover:bg-cool-wash"
+            >
+              {{ link.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    }
+  </ng-container>
+</app-topbar>

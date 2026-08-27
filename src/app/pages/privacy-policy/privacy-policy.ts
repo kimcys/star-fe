@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero';
 import { LegalSection, LegalSectionsComponent } from '../../shared/components/legal-sections/legal-sections';
+import {
+  LEGAL_LAST_UPDATED,
+  OFFICE_ADDRESS,
+  OFFICE_EMAIL,
+  OFFICE_HOTLINE,
+} from '../../shared/site-info';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -8,6 +14,8 @@ import { LegalSection, LegalSectionsComponent } from '../../shared/components/le
   templateUrl: './privacy-policy.html',
 })
 export class PrivacyPolicyComponent {
+  readonly lastUpdated = LEGAL_LAST_UPDATED;
+
   readonly sections: LegalSection[] = [
     {
       title: '1. Overview',
@@ -87,10 +95,9 @@ export class PrivacyPolicyComponent {
     {
       title: '8. Contact Us',
       body: [
-        'If you have any questions about this Privacy Policy, please contact us at ' +
-          'customerservice@thestar.com.my, call our Customer Hotline at 1300 88 7827, or ' +
-          'write to us at Menara Star, 15, Jalan 16/11, Pusat Perdagangan Phileo Damansara, ' +
-          '46350 Petaling Jaya, Selangor. Further details are available on our About page.',
+        `If you have any questions about this Privacy Policy, please contact us at ` +
+          `${OFFICE_EMAIL}, call our Customer Hotline at ${OFFICE_HOTLINE}, or write to us ` +
+          `at ${OFFICE_ADDRESS}. Further details are available on our About page.`,
       ],
     },
   ];

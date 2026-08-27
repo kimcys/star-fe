@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-form-field',
+  host: { class: 'block' },
   template: `
     <label class="block">
       <span class="mb-1.5 block text-caption font-medium text-deep-gray">{{ label() }}</span>

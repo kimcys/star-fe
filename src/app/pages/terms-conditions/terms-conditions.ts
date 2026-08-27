@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero';
 import { LegalSection, LegalSectionsComponent } from '../../shared/components/legal-sections/legal-sections';
+import {
+  LEGAL_LAST_UPDATED,
+  OFFICE_ADDRESS,
+  OFFICE_EMAIL,
+  OFFICE_HOTLINE,
+  OFFICE_HOURS,
+} from '../../shared/site-info';
 
 @Component({
   selector: 'app-terms-conditions',
@@ -8,6 +15,8 @@ import { LegalSection, LegalSectionsComponent } from '../../shared/components/le
   templateUrl: './terms-conditions.html',
 })
 export class TermsConditionsComponent {
+  readonly lastUpdated = LEGAL_LAST_UPDATED;
+
   readonly sections: LegalSection[] = [
     {
       title: '1. Acceptance of Terms',
@@ -73,11 +82,9 @@ export class TermsConditionsComponent {
     {
       title: '8. Contact Us',
       body: [
-        'For questions regarding these Terms & Conditions, please contact us at ' +
-          'customerservice@thestar.com.my, call 1300 88 7827 (Monday – Friday, 9:00 AM – ' +
-          '5:30 PM), or write to us at Menara Star, 15, Jalan 16/11, Pusat Perdagangan ' +
-          'Phileo Damansara, 46350 Petaling Jaya, Selangor. Further details are available on ' +
-          'our About page.',
+        `For questions regarding these Terms & Conditions, please contact us at ` +
+          `${OFFICE_EMAIL}, call ${OFFICE_HOTLINE} (${OFFICE_HOURS}), or write to us at ` +
+          `${OFFICE_ADDRESS}. Further details are available on our About page.`,
       ],
     },
   ];

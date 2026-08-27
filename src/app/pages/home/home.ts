@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CardComponent } from '../../shared/components/card/card';
 import { ButtonComponent } from '../../shared/components/button/button';
+import { SectionHeaderComponent } from '../../shared/components/section-header/section-header';
 
 interface Feature {
   icon: string;
@@ -10,7 +11,7 @@ interface Feature {
 
 @Component({
   selector: 'app-home',
-  imports: [CardComponent, ButtonComponent],
+  imports: [CardComponent, ButtonComponent, SectionHeaderComponent],
   templateUrl: './home.html',
 })
 export class HomeComponent {

@@ -10,6 +10,12 @@ export type ButtonVariant =
   | 'ghost'
   | 'danger';
 export type ButtonType = 'button' | 'submit' | 'reset';
+export type ButtonSize = 'sm' | 'md';
+
+const SIZE_CLASSES: Record<ButtonSize, string> = {
+  md: 'px-4 py-2.5 text-body-sm',
+  sm: 'px-3 py-1.5 text-caption',
+};
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
@@ -58,6 +64,7 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
 })
 export class ButtonComponent {
   variant = input<ButtonVariant>('primary');
+  size = input<ButtonSize>('md');
   type = input<ButtonType>('button');
   disabled = input(false);
   loading = input(false);
@@ -66,8 +73,8 @@ export class ButtonComponent {
 
   classes(): string {
     const base =
-      'inline-flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-body-sm font-normal transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed';
+      'inline-flex items-center justify-center gap-2 rounded-full font-normal transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed';
     const width = this.fullWidth() ? ' w-full' : '';
-    return `${base} ${VARIANT_CLASSES[this.variant()]}${width}`;
+    return `${base} ${SIZE_CLASSES[this.size()]} ${VARIANT_CLASSES[this.variant()]}${width}`;
   }
 }

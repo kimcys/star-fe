@@ -5,18 +5,9 @@
   </div>
 
   <div class="mb-8 grid gap-4 sm:grid-cols-3">
-    <app-card>
-      <p class="text-caption text-mid-gray">Total Records</p>
-      <p class="mt-1 text-heading-sm font-semibold text-primary-ink">{{ logs().length }}</p>
-    </app-card>
-    <app-card>
-      <p class="text-caption text-mid-gray">Accepted</p>
-      <p class="mt-1 text-heading-sm font-semibold text-primary-ink">{{ acceptedCount() }}</p>
-    </app-card>
-    <app-card>
-      <p class="text-caption text-mid-gray">Declined</p>
-      <p class="mt-1 text-heading-sm font-semibold text-brand-red">{{ declinedCount() }}</p>
-    </app-card>
+    <app-stat-tile label="Total Records" [value]="logs().length"></app-stat-tile>
+    <app-stat-tile label="Accepted" [value]="acceptedCount()"></app-stat-tile>
+    <app-stat-tile label="Declined" [value]="declinedCount()" valueClass="text-brand-red"></app-stat-tile>
   </div>
 
   @if (errorMessage()) {

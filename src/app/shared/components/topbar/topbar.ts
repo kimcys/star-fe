@@ -1,0 +1,14 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-topbar',
+  template: `
+    <header class="sticky top-0 z-30 bg-faded-surface/90 backdrop-blur-xl">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        <ng-content></ng-content>
+      </div>
+      <ng-content select="[below]"></ng-content>
+    </header>
+  `,
+})
+export class TopbarComponent {}
