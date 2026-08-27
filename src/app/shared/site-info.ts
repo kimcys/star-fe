@@ -1,5 +1,8 @@
 export const OFFICE_ADDRESS =
   'Menara Star, 15, Jalan 16/11, Pusat Perdagangan Phileo Damansara, 46350 Petaling Jaya, Selangor';
+// Geocoded via OpenStreetMap Nominatim, used to embed the office map.
+export const OFFICE_LAT = 3.1265904;
+export const OFFICE_LON = 101.6453547;
 export const OFFICE_MAIN_PHONE = '+603 7967 1388';
 export const OFFICE_HOTLINE = '1300 88 7827';
 export const OFFICE_EMAIL = 'customerservice@thestar.com.my';

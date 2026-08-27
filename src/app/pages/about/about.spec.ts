@@ -17,12 +17,12 @@ describe('AboutComponent', () => {
     expect(items.length).toBe(fixture.componentInstance.contactDetails.length);
   });
 
-  it('builds a Google Maps embed URL for the office address', () => {
+  it('builds an OpenStreetMap embed URL with a marker for the office location', () => {
     const fixture = TestBed.createComponent(AboutComponent);
     fixture.detectChanges();
     const iframe: HTMLIFrameElement = fixture.nativeElement.querySelector('iframe');
-    expect(iframe.src).toContain('https://www.google.com/maps/embed/v1/place');
-    expect(iframe.src).toContain(encodeURIComponent(fixture.componentInstance.officeAddress));
+    expect(iframe.src).toContain('https://www.openstreetmap.org/export/embed.html');
+    expect(iframe.src).toContain('marker=');
   });
 
   it('renders a card for every brand group plus the contact card', () => {

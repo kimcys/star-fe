@@ -30,9 +30,9 @@ view submitted consent decisions. Consumes the JSON API in the sibling
   and copy adapted from [starmediagroup.my](https://www.starmediagroup.my)
   across Home, About, Privacy Policy, and Terms & Conditions (company
   profile, brand portfolio, real office address/phone/email/hours)
-- ✅ Google Maps embed of the office location (Menara Star) on the
-  About page — see [Google Maps](#google-maps) below for the one-time
-  API setup this needs
+- ✅ Embedded map of the office location (Menara Star) on the About
+  page, via OpenStreetMap — no API key or billing required, works
+  out of the box
 - ✅ Built from small, reusable, presentation-only components —
   `app-button`, `app-card`, `app-page-hero`, `app-legal-sections`,
   `app-form-field`, `app-alert`, `app-input`, `app-spinner`,
@@ -79,19 +79,14 @@ It defaults to `http://localhost:8000`, matching the backend's
 > reappear on every reload even after accepting. Keeping both frontend
 > and backend on the `localhost` host keeps them same-site.
 
-### Google Maps
+### Map
 
 The About page (`src/app/pages/about/about.ts`) embeds the office
-location via the **Maps Embed API**. The key is a plain constant in
-that file (`GOOGLE_MAPS_API_KEY`) — for a real deployment this should
-move to an environment-specific config instead of being committed. For
-the map to actually render (rather than a Google "this API is not
-activated" error), the key's Google Cloud project needs:
-
-1. **Maps Embed API** enabled — APIs & Services → Library
-2. **Billing enabled** on that project (required even within the free tier)
-3. If the key has HTTP referrer restrictions, both `localhost` (dev)
-   and the production domain allow-listed
+location via **OpenStreetMap's** free embed (`openstreetmap.org/export/embed.html`)
+— just a bounding box and a marker built from the office's coordinates
+(`OFFICE_LAT`/`OFFICE_LON` in `src/app/shared/site-info.ts`, geocoded
+via Nominatim). No API key, account, or billing needed, so it renders
+correctly with zero setup.
 
 ## Building
 

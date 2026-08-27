@@ -7,6 +7,8 @@ import {
   OFFICE_EMAIL,
   OFFICE_HOTLINE,
   OFFICE_HOURS,
+  OFFICE_LAT,
+  OFFICE_LON,
   OFFICE_MAIN_PHONE,
 } from '../../shared/site-info';
 
@@ -21,7 +23,8 @@ interface BrandGroup {
   brands: string;
 }
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyBQquW7KSr2f9u_JjX8MjNvotIQV8J_ZRc';
+// Small bounding box around the office, in degrees.
+const MAP_BBOX_DELTA = 0.003;
 
 @Component({
   selector: 'app-about',
@@ -48,9 +51,16 @@ export class AboutComponent {
   ];
 
   constructor(sanitizer: DomSanitizer) {
-    const query = encodeURIComponent(OFFICE_ADDRESS);
+    // OpenStreetMap's embed needs no API key/billing, unlike Google's Maps
+    // Embed API - free to use with just a bounding box and a marker.
+    const bbox = [
+      OFFICE_LON - MAP_BBOX_DELTA,
+      OFFICE_LAT - MAP_BBOX_DELTA,
+      OFFICE_LON + MAP_BBOX_DELTA,
+      OFFICE_LAT + MAP_BBOX_DELTA,
+    ].join(',');
     this.mapUrl = sanitizer.bypassSecurityTrustResourceUrl(
-      `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${query}`,
+      `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${OFFICE_LAT},${OFFICE_LON}`,
     );
   }
 }
