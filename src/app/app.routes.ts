@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ShellComponent } from './layout/shell/shell';
 import { AdminShellComponent } from './layout/admin-shell/admin-shell';
 import { adminGuard, adminLoginGuard } from './core/guards/admin.guard';
+import { HIDE_CONSENT_BANNER_ROUTE_DATA_KEY } from './shared/components/consent-banner/consent-banner';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,9 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/privacy-policy/privacy-policy').then((m) => m.PrivacyPolicyComponent),
         title: 'Privacy Policy — Star Media Group',
+        // Readers need to get through this page's content before deciding
+        // accept/decline - the banner (and its scroll lock) would block that.
+        data: { [HIDE_CONSENT_BANNER_ROUTE_DATA_KEY]: true },
       },
       {
         path: 'terms-conditions',
@@ -31,6 +35,7 @@ export const routes: Routes = [
             (m) => m.TermsConditionsComponent,
           ),
         title: 'Terms & Conditions — Star Media Group',
+        data: { [HIDE_CONSENT_BANNER_ROUTE_DATA_KEY]: true },
       },
     ],
   },

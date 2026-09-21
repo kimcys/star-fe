@@ -1,9 +1,13 @@
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { ConsentBannerComponent } from './consent-banner';
+import { ConsentBannerComponent, HIDE_CONSENT_BANNER_ROUTE_DATA_KEY } from './consent-banner';
 import { API_BASE_URL } from '../../../core/config/api.config';
+
+@Component({ template: '', standalone: true })
+class BlankComponent {}
 
 // The constructor's fire-and-forget `refreshStatus()` call, and the
 // (click)-triggered accept()/decline() calls, resolve a signal after an
@@ -19,7 +23,18 @@ describe('ConsentBannerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ConsentBannerComponent],
-      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        provideRouter([
+          { path: '', component: BlankComponent },
+          {
+            path: 'terms-conditions',
+            component: BlankComponent,
+            data: { [HIDE_CONSENT_BANNER_ROUTE_DATA_KEY]: true },
+          },
+        ]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
     }).compileComponents();
     httpMock = TestBed.inject(HttpTestingController);
   });
@@ -77,6 +92,41 @@ describe('ConsentBannerComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeNull();
+  });
+
+  it('stays hidden on a route flagged with hideConsentBanner even when the status check resolves true', async () => {
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/terms-conditions');
+
+    const fixture = TestBed.createComponent(ConsentBannerComponent);
+    fixture.detectChanges();
+    httpMock
+      .expectOne(`${API_BASE_URL}/api/consent-status.php`)
+      .flush({ success: true, shouldShowBanner: true });
+    await tick();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeNull();
+    expect(document.body.classList.contains('overflow-hidden')).toBe(false);
+  });
+
+  it('reappears after navigating away from a hideConsentBanner route, still with no decision recorded', async () => {
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/terms-conditions');
+
+    const fixture = TestBed.createComponent(ConsentBannerComponent);
+    fixture.detectChanges();
+    httpMock
+      .expectOne(`${API_BASE_URL}/api/consent-status.php`)
+      .flush({ success: true, shouldShowBanner: true });
+    await tick();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeNull();
+
+    await router.navigateByUrl('/');
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeTruthy();
   });
 
   it('hides the banner and posts a decline decision when Decline is clicked', async () => {
