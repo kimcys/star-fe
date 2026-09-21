@@ -14,8 +14,8 @@ describe('FooterComponent', () => {
   it('renders a link for each entry in NAV_LINKS and the current year', () => {
     const fixture = TestBed.createComponent(FooterComponent);
     fixture.detectChanges();
-    const labels = Array.from(fixture.nativeElement.querySelectorAll('a')).map((a: any) =>
-      a.textContent?.trim(),
+    const labels = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('a')).map(
+      (a) => a.textContent?.trim(),
     );
     for (const link of NAV_LINKS) {
       expect(labels).toContain(link.label);

@@ -53,9 +53,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () =>
-          import('./pages/admin/dashboard/admin-dashboard').then(
-            (m) => m.AdminDashboardComponent,
-          ),
+          import('./pages/admin/dashboard/admin-dashboard').then((m) => m.AdminDashboardComponent),
         canActivate: [adminGuard],
         title: 'Admin Dashboard — Star Media Group',
       },

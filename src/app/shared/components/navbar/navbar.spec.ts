@@ -15,7 +15,9 @@ describe('NavbarComponent', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const labels = new Set(
-      Array.from(fixture.nativeElement.querySelectorAll('ul a')).map((a: any) => a.textContent?.trim()),
+      Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('ul a')).map((a) =>
+        a.textContent?.trim(),
+      ),
     );
     for (const link of NAV_LINKS) {
       expect(labels.has(link.label)).toBe(true);

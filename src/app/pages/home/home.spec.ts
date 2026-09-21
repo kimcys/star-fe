@@ -24,8 +24,8 @@ describe('HomeComponent', () => {
   it('lists every brand', () => {
     const fixture = TestBed.createComponent(HomeComponent);
     fixture.detectChanges();
-    const items = Array.from(fixture.nativeElement.querySelectorAll('li')).map((li: any) =>
-      li.textContent?.trim(),
+    const items = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('li')).map(
+      (li) => li.textContent?.trim(),
     );
     for (const brand of fixture.componentInstance.brands) {
       expect(items).toContain(brand);

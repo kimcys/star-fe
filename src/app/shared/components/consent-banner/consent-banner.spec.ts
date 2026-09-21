@@ -80,9 +80,9 @@ describe('ConsentBannerComponent', () => {
     await tick();
     fixture.detectChanges();
 
-    const acceptButton = Array.from(fixture.nativeElement.querySelectorAll('button')).find((b: any) =>
-      b.textContent?.includes('Accept'),
-    ) as HTMLButtonElement;
+    const acceptButton = Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll('button'),
+    ).find((b) => b.textContent?.includes('Accept'))!;
     acceptButton.click();
 
     httpMock
@@ -129,6 +129,20 @@ describe('ConsentBannerComponent', () => {
     expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeTruthy();
   });
 
+  it('shows a non-blocking notice, without locking scroll, when the status check is unreachable', async () => {
+    const fixture = TestBed.createComponent(ConsentBannerComponent);
+    fixture.detectChanges();
+    httpMock
+      .expectOne(`${API_BASE_URL}/api/consent-status.php`)
+      .flush('boom', { status: 500, statusText: 'Server Error' });
+    await tick();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('[role="status"]')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeNull();
+    expect(document.body.classList.contains('overflow-hidden')).toBe(false);
+  });
+
   it('hides the banner and posts a decline decision when Decline is clicked', async () => {
     const fixture = TestBed.createComponent(ConsentBannerComponent);
     fixture.detectChanges();
@@ -138,9 +152,9 @@ describe('ConsentBannerComponent', () => {
     await tick();
     fixture.detectChanges();
 
-    const declineButton = Array.from(fixture.nativeElement.querySelectorAll('button')).find((b: any) =>
-      b.textContent?.includes('Decline'),
-    ) as HTMLButtonElement;
+    const declineButton = Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll('button'),
+    ).find((b) => b.textContent?.includes('Decline'))!;
     declineButton.click();
 
     httpMock

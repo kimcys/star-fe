@@ -1,3 +1,12 @@
+@if (consent.unreachable()) {
+  <div
+    class="fixed inset-x-0 top-0 z-40 bg-amber-50 px-4 py-2 text-center text-caption text-amber-900"
+    role="status"
+  >
+    Having trouble reaching our server to check your cookie preferences. Retrying automatically…
+  </div>
+}
+
 @if (visible()) {
   <div class="fixed inset-0 z-50 bg-black/50" aria-hidden="true"></div>
 
@@ -7,14 +16,16 @@
     aria-modal="true"
     aria-labelledby="consent-banner-title"
   >
-    <div class="mx-auto flex max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div
+      class="mx-auto flex max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+    >
       <div class="flex-1">
         <h2 id="consent-banner-title" class="text-body-sm font-semibold text-primary-ink">
           We value your privacy
         </h2>
         <p class="mt-1.5 text-caption text-mid-gray">
-          Cookies are necessary for this website to function properly, for performance
-          measurement, and to provide you with the best experience.
+          Cookies are necessary for this website to function properly, for performance measurement,
+          and to provide you with the best experience.
         </p>
         <p class="mt-1.5 text-caption text-mid-gray">
           By continuing to access or use this site, you acknowledge and consent to our use of
@@ -24,8 +35,8 @@
           </a>
           and
           <a routerLink="/privacy-policy" class="font-medium text-link-blue hover:underline">
-            Privacy Statement
-          </a>.
+            Privacy Statement </a
+          >.
         </p>
 
         @if (errorMessage()) {

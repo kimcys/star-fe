@@ -100,13 +100,15 @@ A `Dockerfile` builds the production bundle (Node) and serves the
 static `dist/star-fe/browser` output via nginx, with `nginx.conf`
 handling the Angular Router's client-side routes (any path that isn't
 a real file falls back to `index.html`, so a hard refresh on `/about`
-or `/admin/dashboard` works instead of 404ing).
+or `/admin/dashboard` works instead of 404ing). It uses
+`nginxinc/nginx-unprivileged` listening on `8080` rather than plain
+`nginx` on `80`, so the container runs as a non-root user end to end.
 
 Standalone:
 
 ```bash
 docker build -t star-fe-web .
-docker run -p 4200:80 star-fe-web
+docker run -p 4200:8080 star-fe-web
 ```
 
 Or as part of the whole stack — `star-be`'s `docker-compose.yml`

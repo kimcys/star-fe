@@ -30,14 +30,32 @@ describe('ConsentService', () => {
     expect(service.checked()).toBe(true);
   });
 
-  it('hides the banner if the status check fails', async () => {
+  it('marks the status check unreachable on failure, without forcing showBanner', async () => {
     const promise = service.refreshStatus();
     httpMock
       .expectOne(`${API_BASE_URL}/api/consent-status.php`)
       .flush('boom', { status: 500, statusText: 'Server Error' });
     await promise;
     expect(service.showBanner()).toBe(false);
+    expect(service.unreachable()).toBe(true);
     expect(service.checked()).toBe(true);
+  });
+
+  it('clears unreachable once a later status check succeeds', async () => {
+    let promise = service.refreshStatus();
+    httpMock
+      .expectOne(`${API_BASE_URL}/api/consent-status.php`)
+      .flush('boom', { status: 500, statusText: 'Server Error' });
+    await promise;
+    expect(service.unreachable()).toBe(true);
+
+    promise = service.refreshStatus();
+    httpMock
+      .expectOne(`${API_BASE_URL}/api/consent-status.php`)
+      .flush({ success: true, shouldShowBanner: true });
+    await promise;
+    expect(service.unreachable()).toBe(false);
+    expect(service.showBanner()).toBe(true);
   });
 
   it('accept posts the decision and hides the banner', async () => {
