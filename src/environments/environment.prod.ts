@@ -2,13 +2,14 @@
  * Production build values, swapped in for environment.ts via the
  * `fileReplacements` entry in angular.json's production configuration.
  *
- * apiBaseUrl matches environment.ts - this project's Docker setup
- * serves the SPA (nginx, this build) and the PHP API as two separate
- * origins (:4200 and :8000), with no reverse proxy between them (see
- * nginx.conf), so the frontend must call the API's full URL rather
- * than a same-origin relative path. Override this if the API is ever
- * actually served from the same origin as the SPA.
+ * apiBaseUrl is empty on purpose: the real production deployment (Caddy,
+ * see deploy/Caddyfile) serves the SPA and the PHP API from the *same*
+ * origin, splitting traffic by path (/api/*, /consent-handler.php,
+ * /admin/*.php go to the backend, everything else to the SPA) - so API
+ * calls should resolve relative to whatever origin the page itself was
+ * loaded from, not a hardcoded host:port. `${API_BASE_URL}/api/...`
+ * with an empty base just becomes `/api/...`, a same-origin request.
  */
 export const environment = {
-  apiBaseUrl: 'http://localhost:8000',
+  apiBaseUrl: '',
 };
