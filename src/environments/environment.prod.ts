@@ -2,14 +2,15 @@
  * Production build values, swapped in for environment.ts via the
  * `fileReplacements` entry in angular.json's production configuration.
  *
- * apiBaseUrl is empty on purpose: the real production deployment (Caddy,
- * see deploy/Caddyfile) serves the SPA and the PHP API from the *same*
- * origin, splitting traffic by path (/api/*, /consent-handler.php,
- * /admin/*.php go to the backend, everything else to the SPA) - so API
- * calls should resolve relative to whatever origin the page itself was
- * loaded from, not a hardcoded host:port. `${API_BASE_URL}/api/...`
- * with an empty base just becomes `/api/...`, a same-origin request.
+ * This exact file gets overwritten at Docker build time (see the
+ * Dockerfile's ARG API_BASE_URL) with whatever URL that specific image
+ * actually needs - the real production deploy uses
+ * https://api.aimanhakimcy.com, while the local docker-compose stack
+ * uses the default below unchanged. The value committed here only
+ * matters if someone runs `ng build --configuration production`
+ * directly, outside Docker - localhost:8000 matches the local
+ * docker-compose backend's published port for that case.
  */
 export const environment = {
-  apiBaseUrl: '',
+  apiBaseUrl: 'http://localhost:8000',
 };

@@ -2,13 +2,24 @@
 FROM node:22-alpine AS build
 WORKDIR /app
 
+# Same image serves two different deployments (this repo's own local
+# docker-compose stack, and the real production one behind Caddy) that
+# need different API URLs - overridden per build via --build-arg, e.g.
+# in CI: --build-arg API_BASE_URL=https://api.aimanhakimcy.com. Left at
+# its default, this matches the local docker-compose stack unchanged.
+ARG API_BASE_URL=http://localhost:8000
+
 # Copy just the manifest first so `npm ci` is cached unless
 # package*.json actually changed, instead of on every source edit.
 COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-# `ng build` defaults to the production configuration (see angular.json).
+RUN printf 'export const environment = {\n  apiBaseUrl: '"'"'%s'"'"',\n};\n' "$API_BASE_URL" \
+    > src/environments/environment.prod.ts
+# `ng build` defaults to the production configuration (see angular.json),
+# which is what swaps environment.prod.ts (just rewritten above) in for
+# environment.ts.
 RUN npm run build
 
 # --- Runtime stage ---------------------------------------------------
