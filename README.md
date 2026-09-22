@@ -17,7 +17,10 @@ view submitted consent decisions. Consumes the JSON API in the sibling
   real consent cookies are httponly
 - ✅ Admin login + dashboard (route-guarded), listing consent records
   from the backend — restyled to match the public site's design system
-  (shared topbar, logo, and stat tiles, not a separate look)
+  (shared topbar, logo, and stat tiles, not a separate look). Live at
+  https://aimanhakimcy.com/admin/login — see the root README's
+  [Trying it live](../README.md#trying-it-live) for how to get the demo
+  credential, or create your own against a local copy instead
 - ✅ Apple-inspired design system (see [Design system](#design-system)
   below) — flat borderless surfaces, pill buttons, an 8-step type
   scale, all as Tailwind v4 `@theme` tokens, with the Star Media Group
