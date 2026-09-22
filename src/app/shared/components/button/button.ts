@@ -2,13 +2,7 @@ import { Component, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
-export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'outline'
-  | 'outline-light'
-  | 'ghost'
-  | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
 export type ButtonType = 'button' | 'submit' | 'reset';
 export type ButtonSize = 'sm' | 'md';
 
@@ -27,8 +21,6 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
     'bg-primary-ink text-paper hover:bg-deep-gray focus-visible:outline-primary-ink disabled:bg-mid-gray',
   outline:
     'border border-primary-ink text-primary-ink hover:bg-cool-wash focus-visible:outline-mid-gray disabled:text-mid-gray disabled:border-hairline',
-  'outline-light':
-    'border border-white/40 text-white hover:bg-white/10 focus-visible:outline-white disabled:text-white/40',
   ghost:
     'text-mid-gray hover:bg-cool-wash focus-visible:outline-hairline disabled:text-quiet-dot',
   danger:

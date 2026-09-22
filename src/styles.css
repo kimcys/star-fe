@@ -25,11 +25,6 @@
   --color-indigo: #596680;
   --color-midnight: #2e3642;
 
-  /* A permanently-dark decorative surface (e.g. the home hero band) that
-     should NOT flip with the light/dark theme toggle — unlike
-     --color-primary-ink, which is a semantic foreground token that does. */
-  --color-ink-fixed: #1d1d1f;
-
   /* Status colors — named tokens (rather than raw Tailwind red/green)
      so dark mode only has to be defined once, below. */
   --color-danger: #dc2626;
@@ -96,8 +91,9 @@
    block above generates — every `bg-canvas`/`text-primary-ink`/etc.
    utility already reads from these vars, so re-pointing them here is
    enough to re-theme the whole app with no per-component `dark:`
-   classes needed. --color-ink-fixed and --color-brand-red are
-   intentionally left unset here (see their definitions above). */
+   classes needed. --color-brand-red is intentionally left unset here
+   (see its definition above) — Star Media Group's masthead colour
+   shouldn't change with the theme. */
 .dark {
   color-scheme: dark;
 
