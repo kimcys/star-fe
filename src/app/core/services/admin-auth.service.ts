@@ -41,8 +41,8 @@ export class AdminAuthService {
         return {
           success: false,
           error: err.error.error,
-          locked: err.error.locked === true,
-          retryAfterSeconds: err.error.retryAfterSeconds,
+          locked: err.error.locked === true || err.status === 423 || err.status === 429,
+          retryAfterSeconds: err.error.retryAfterSeconds ?? 60,
         };
       }
       return { success: false, error: 'Unable to log in right now. Please try again.' };

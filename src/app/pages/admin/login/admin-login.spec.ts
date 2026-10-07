@@ -98,4 +98,29 @@ describe('AdminLoginComponent', () => {
     expect(el.querySelector('button')?.disabled).toBe(true);
     fixture.destroy();
   });
+
+  it('locks the form after 5 failed tries even when the reply gives no details', async () => {
+    const fixture = TestBed.createComponent(AdminLoginComponent);
+    fixture.componentInstance.username.set('admin');
+    fixture.componentInstance.password.set('wrong');
+    fixture.detectChanges();
+
+    for (let i = 0; i < 5; i++) {
+      const p = fixture.componentInstance.submit();
+      httpMock.expectOne(`${API_BASE_URL}/api/csrf-cookie.php`).flush({ success: true });
+      await tick();
+      httpMock
+        .expectOne(`${API_BASE_URL}/api/admin/login.php`)
+        .error(new ProgressEvent('error'), { status: 0 });
+      await p;
+      fixture.componentInstance.password.set('wrong');
+    }
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.locked()).toBe(true);
+    fixture.nativeElement
+      .querySelectorAll('input')
+      .forEach((i: HTMLInputElement) => expect(i.disabled).toBe(true));
+    fixture.destroy();
+  });
 });
