@@ -7,7 +7,11 @@
 
     @if (errorMessage()) {
       <div class="mb-4">
-        <app-alert tone="error">{{ errorMessage() }}</app-alert>
+        <app-alert tone="error">{{ errorMessage() }}
+          @if (locked()) {
+            Try again in {{ lockSecondsLeft() }} seconds.
+          }
+        </app-alert>
       </div>
     }
 
@@ -19,6 +23,7 @@
             name="username"
             autocomplete="username"
             [value]="username()"
+            [disabled]="locked()"
             (valueChange)="username.set($event)"
           ></app-input>
         </app-form-field>
@@ -29,13 +34,14 @@
             name="password"
             autocomplete="current-password"
             [value]="password()"
+            [disabled]="locked()"
             (valueChange)="password.set($event)"
           ></app-input>
         </app-form-field>
       </div>
 
       <div class="mt-6">
-        <app-button type="submit" variant="primary" [fullWidth]="true" [loading]="submitting()">
+        <app-button type="submit" variant="primary" [fullWidth]="true" [loading]="submitting()" [disabled]="locked()">
           Log in
         </app-button>
       </div>

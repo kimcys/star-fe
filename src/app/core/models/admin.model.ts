@@ -7,4 +7,6 @@ export interface AdminLoginResponse {
   success: boolean;
   username?: string;
   error?: string;
+  locked?: boolean;
+  retryAfterSeconds?: number;
 }

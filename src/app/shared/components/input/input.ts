@@ -13,5 +13,6 @@ export class InputComponent {
   placeholder = input('');
   autocomplete = input('off');
   value = input('');
+  disabled = input(false);
   valueChange = output<string>();
 }

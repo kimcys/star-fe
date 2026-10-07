@@ -38,7 +38,12 @@ export class AdminAuthService {
       return res;
     } catch (err) {
       if (err instanceof HttpErrorResponse && err.error?.error) {
-        return { success: false, error: err.error.error };
+        return {
+          success: false,
+          error: err.error.error,
+          locked: err.error.locked === true,
+          retryAfterSeconds: err.error.retryAfterSeconds,
+        };
       }
       return { success: false, error: 'Unable to log in right now. Please try again.' };
     }

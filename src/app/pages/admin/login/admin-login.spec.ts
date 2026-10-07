@@ -71,4 +71,31 @@ describe('AdminLoginComponent', () => {
 
     expect(fixture.componentInstance.errorMessage()).toBe('Invalid credentials');
   });
+
+  it('shows a locked message and disables the form when the account is locked', async () => {
+    const fixture = TestBed.createComponent(AdminLoginComponent);
+    fixture.componentInstance.username.set('admin');
+    fixture.componentInstance.password.set('wrong');
+    fixture.detectChanges();
+
+    const submitPromise = fixture.componentInstance.submit();
+    httpMock.expectOne(`${API_BASE_URL}/api/csrf-cookie.php`).flush({ success: true });
+    await tick();
+    httpMock
+      .expectOne(`${API_BASE_URL}/api/admin/login.php`)
+      .flush(
+        { success: false, locked: true, retryAfterSeconds: 60, error: 'locked' },
+        { status: 423, statusText: 'Locked' },
+      );
+    await submitPromise;
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.locked()).toBe(true);
+    expect(fixture.componentInstance.lockSecondsLeft()).toBe(60);
+    const el: HTMLElement = fixture.nativeElement;
+    expect(el.textContent).toContain('locked');
+    el.querySelectorAll('input').forEach((i) => expect(i.disabled).toBe(true));
+    expect(el.querySelector('button')?.disabled).toBe(true);
+    fixture.destroy();
+  });
 });
